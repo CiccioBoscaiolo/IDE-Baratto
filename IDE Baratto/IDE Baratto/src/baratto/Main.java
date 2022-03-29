@@ -3,7 +3,7 @@ package baratto;
 import it.unibs.fp.mylib.BelleStringhe;
 import it.unibs.fp.mylib.InputDati;
 import it.unibs.fp.mylib.MyMenu;
-//prova
+
 
 public class Main {
 	public final static String[] MENUBARATTO={"utente","configuratore"};
