@@ -8,14 +8,19 @@ public class Categoria {
 	private int ID;
 	private ArrayList <String> campi;
 	
-	public Categoria(String nome, ArrayList <String> campi) {
+	public Categoria(String nome) {
 		this.nome=nome;
-		this.campi= new ArrayList<String>();
+		
+	}
+	public void campi_standard() {
 		campi.add("descrizione libera");
 		campi.add("stato conservazione");
 	}
 	public void setCampi(ArrayList<String> campi) {
 		this.campi = campi;
+	}
+	public void nuovoCampo (String campo) {
+		campi.add(campo);
 	}
 	public void setID(int iD) {
 		ID = iD;

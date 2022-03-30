@@ -11,12 +11,15 @@ public class ListaConfiguratori {
 	public void nuovo(Configuratore c) {
 		listaConfiguratori.add(c);
 	}
+	//set e get
 	public Configuratore getConfiguratore(int i) {
 		return listaConfiguratori.get(i);
 	}
 	public void setConfiguratore(Configuratore c, int i) {
 		listaConfiguratori.set(i, c);
 	}
+	
+	//altri metodi 
 	public boolean ricerca(Configuratore c) {
 		for(int i=0;i<listaConfiguratori.size();i++) {
 			if(listaConfiguratori.get(i).nome.equals(c.nome))
@@ -26,7 +29,6 @@ public class ListaConfiguratori {
 		return false;
 		
 	}
-	
 	public void stampatutti() {
 		for(int i=0;i<listaConfiguratori.size();i++) {
 			System.out.println(listaConfiguratori.get(i).getNome()+" "+listaConfiguratori.get(i).getPsw()+"\n");
@@ -51,7 +53,7 @@ public class ListaConfiguratori {
 			}
 			else if(motivo=="new") {
 				if(!ricerca(c)) {
-					nuovo(c);
+					listaConfiguratori.add(c);
 					flag=true;
 					ritenta=false;
 				}
