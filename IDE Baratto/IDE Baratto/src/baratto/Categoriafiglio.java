@@ -6,7 +6,7 @@ public class Categoriafiglio extends Categoria{
 
 	private int padre;
 	public Categoriafiglio(String nome, ArrayList <String> campi,int padre) {
-		super (nome,campi);
+		super (nome);
 		this.padre=padre;
 	}
 	public void setPadre(int padre) {
