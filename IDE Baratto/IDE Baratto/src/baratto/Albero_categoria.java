@@ -3,7 +3,7 @@ package baratto;
 import java.util.ArrayList;
 import java.util.List;
  
-// CIAOOOOOOOOOOO
+// CIAOOOOOOOOOOOO
 
 public class Albero_categoria<Categoria> {
 
