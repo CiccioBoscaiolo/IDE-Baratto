@@ -1,27 +1,31 @@
 package baratto;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Categoria {
 
 	private String nome;
 	private int ID;
-	private ArrayList <String> campi;
+	private ArrayList <String> campi=null;
+	private List<Categoria> figli = new ArrayList<>(); 
+	private Categoria padre = null;
+	private Categoria cat = null;
 	
 	public Categoria(String nome) {
 		this.nome=nome;
 		
 	}
-	public void campi_standard() {
+	/*public void campi_standard() {
 		campi.add("descrizione libera");
 		campi.add("stato conservazione");
-	}
+	}*/ 
 	public void setCampi(ArrayList<String> campi) {
 		this.campi = campi;
 	}
-	public void nuovoCampo (String campo) {
+	/*public void nuovoCampo (String campo) {
 		campi.add(campo);
-	}
+	}*/
 	public void setID(int iD) {
 		ID = iD;
 	}
@@ -37,4 +41,40 @@ public class Categoria {
 	public String getNome() {
 		return nome;
 	}
+	
+	//aggiunta di un figlio
+	public Categoria addFiglio(Categoria figlio) {
+		figlio.setpadre(this);	//ci dice che il padre è padre del figlio
+		this.figli.add(figlio); //il figlio è figlio del padre
+		return figlio;
+	}
+	 
+	//aggiungi più figli assieme
+	public void addFigli(List <Categoria> figli) {
+		figli.forEach(each -> each.setpadre(this));
+		this.figli.addAll(figli);
+	}
+	 
+
+	//METODI SET E GET
+	public List<Categoria> getFigli() {
+		return figli;
+	}
+	 
+	public Categoria getcat() {
+		return cat;
+	}
+	 
+	public void setcat(Categoria cat) {
+		this.cat = cat;
+	}
+	 
+	private void setpadre(Categoria padre) {
+		this.padre = padre;
+	}
+	 
+	public Categoria getpadre() {
+		return padre;
+	}
+
 }

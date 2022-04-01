@@ -47,7 +47,9 @@ public class ListaConfiguratori {
 			
 			
 			if(motivo=="accesso" && ricerca(c)){
-				System.out.println("banane");
+				
+				//SFOGLIARE ARRAY PER TROVARE IL CONFIGURATORE.... scegli tu "come" 
+				
 				flag=true;
 				ritenta=false;
 			}

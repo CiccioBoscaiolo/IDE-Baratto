@@ -12,8 +12,9 @@ public class Main {
 	public final static String[] MENUACCESSOCONF={"Accedi","Registrati"};
 	public final static String[] MENUCONFIGURATORE= {"aggiungi categoria","visualizza categorie"};
 	
-	private static Albero_categoria albero;
-	private static Lista_alberi listaAlberi;
+	
+	//private static Lista_alberi listaAlberi;
+	private static ArrayList<Categoria> listaAlberi=new ArrayList <Categoria>();
 	private static ListaConfiguratori listaConfiguratori;
 	private static Configuratore c;
 	
@@ -44,6 +45,7 @@ public class Main {
 					}//fine switch accesso
 				
 				if(c!=null) {
+					do {
 					menu=new MyMenu("CONFIGURATORE: "+c.nome,MENUCONFIGURATORE);
 					selezione = menu.scegli();
 					
@@ -59,8 +61,8 @@ public class Main {
 							//implementare visulaizzazione
 						MostraStrutture();
 						break;	
-					
 					}
+					}while(selezione!=0);
 				}
 				break;
 			case 0:
@@ -73,7 +75,9 @@ public class Main {
 
 	private static void MostraStrutture() {
 		//mostrare lista alberi
-		//partire da visualizzazione radici
+		for(int i=0;i<listaAlberi.size();i++) {
+		System.out.println(listaAlberi.get(i).getNome());
+		}
 		
 	}
 
@@ -84,7 +88,8 @@ public class Main {
 
 	private static void Nuova_radice() {	//da finire
 		boolean test;
-		String n,campo;
+		String n;
+		ArrayList<String>campo=new ArrayList<String>();
 		Categoria cat;
 		
 		//NOME CATEGORIA
@@ -94,18 +99,19 @@ public class Main {
 		
 		
 		//CAMPI CATEGORIA
-		cat.campi_standard();
+		//cat.campi_standard();
 		
 		test=InputDati.yesOrNo("vuoi inserire dei campi per questa categoria");
 		while(test==true)
 		{
-			campo=InputDati.leggiStringaNonVuota("inserisci un nuovo campo");
+			campo.add(InputDati.leggiStringaNonVuota("inserisci un nuovo campo"));
 			//da controllare unicita del nome del campo
-			cat.nuovoCampo(campo);
+			//cat.nuovoCampo(campo);
 			test=InputDati.yesOrNo("vuoi inserire altri campi");
 		}
-		Albero_categoria radice=new Albero_categoria(cat);	//??????
-		listaAlberi.nuovo(radice);
+		cat.setCampi(campo);
+		Categoria radice=new Categoria(n);	
+		listaAlberi.add(radice);
 		
 	}
 
