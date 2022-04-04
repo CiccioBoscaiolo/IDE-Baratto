@@ -5,6 +5,7 @@ import java.util.List;
 
 public class Categoria {
 
+	
 	private String nome;
 	private int ID;
 	private ArrayList <String> campi=null;
@@ -12,9 +13,9 @@ public class Categoria {
 	private Categoria padre = null;
 	private Categoria cat = null;
 	
-	public Categoria(String nome) {
+	public Categoria(String nome,int ID) {
 		this.nome=nome;
-		
+		this.ID=ID;
 	}
 	/*public void campi_standard() {
 		campi.add("descrizione libera");
@@ -43,10 +44,10 @@ public class Categoria {
 	}
 	
 	//aggiunta di un figlio
-	public Categoria addFiglio(Categoria figlio) {
+	public void addFiglio(Categoria figlio) {
 		figlio.setpadre(this);	//ci dice che il padre è padre del figlio
 		this.figli.add(figlio); //il figlio è figlio del padre
-		return figlio;
+		
 	}
 	 
 	//aggiungi più figli assieme

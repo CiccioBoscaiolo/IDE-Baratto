@@ -17,15 +17,18 @@ public class Main {
 	private static ArrayList<Categoria> listaAlberi=new ArrayList <Categoria>();
 	private static ListaConfiguratori listaConfiguratori;
 	private static Configuratore c;
+	private static int ID=0;
 	
 	public static void main(String[] args) {
 		listaConfiguratori=new ListaConfiguratori();
 		boolean repeat=true;
-		do {
-			MyMenu menu=new MyMenu("Baratto",MENUBARATTO);
-			int voceSelezionata = menu.scegli();
-			
-			
+		
+		//do {
+			MyMenu menu;
+			//menu=new MyMenu("Baratto",MENUBARATTO);
+			//int voceSelezionata = menu.scegli();
+			int selezione;
+			/*
 			switch(voceSelezionata) {
 			case 1:	
 				//menu utente
@@ -33,7 +36,7 @@ public class Main {
 			case 2:	
 				
 				menu=new MyMenu("Accesso",MENUACCESSOCONF);
-				int selezione = menu.scegli();
+				selezione = menu.scegli();
 				switch(selezione) {
 					case 1:		
 						c=listaConfiguratori.verificaCredenziali("accesso");
@@ -45,25 +48,29 @@ public class Main {
 					}//fine switch accesso
 				
 				if(c!=null) {
-					do {
-					menu=new MyMenu("CONFIGURATORE: "+c.nome,MENUCONFIGURATORE);
+					*/do {
+					menu=new MyMenu("CONFIGURATORE: ",MENUCONFIGURATORE);
 					selezione = menu.scegli();
 					
+					boolean leaf;
 					switch(selezione) {
 					case 1:		//aggiunta nuova radice
-						Nuova_radice();
-						//oppure
-						Nuovo_figlio();
+						leaf=false;
+						Nuova_cat(leaf);
 						
+						
+					case 2:
+						leaf=true;
+						Nuova_cat(leaf);
 						
 						break;
-					case 2:		//visualizza strutture
+					case 3:		//visualizza strutture
 							//implementare visulaizzazione
 						MostraStrutture();
 						break;	
 					}
 					}while(selezione!=0);
-				}
+				}/*
 				break;
 			case 0:
 				System.out.println(BelleStringhe.incornicia("ARRIVEDERCI"));
@@ -71,22 +78,20 @@ public class Main {
 				break;
 			}		
 		}while(repeat==true);
-	}
+	}*/
 
 	private static void MostraStrutture() {
 		//mostrare lista alberi
 		for(int i=0;i<listaAlberi.size();i++) {
-		System.out.println(listaAlberi.get(i).getNome());
+		System.out.println(listaAlberi.get(i).getID()+" "+listaAlberi.get(i).getNome());
 		}
 		
 	}
 
-	private static void Nuovo_figlio() {	//da fare
-		
-		//prima di fare il figlio bisogna fare la visualizzazione di ALMENO TUTTE LE RADICI
-	}
+	
 
-	private static void Nuova_radice() {	//da finire
+	private static void Nuova_cat(boolean leaf) {	//da finire
+		ID++;
 		boolean test;
 		String n;
 		ArrayList<String>campo=new ArrayList<String>();
@@ -95,24 +100,31 @@ public class Main {
 		//NOME CATEGORIA
 		n=InputDati.leggiStringaNonVuota("inseririsci nome categoria");
 		//da controllare unicità nome
-		cat=new Categoria(n);
 		
 		
-		//CAMPI CATEGORIA
-		//cat.campi_standard();
+		cat=new Categoria(n,ID);
 		
-		test=InputDati.yesOrNo("vuoi inserire dei campi per questa categoria");
+		
+		if(leaf==true) {		//se la categoria è figlia entro qua
+			MostraStrutture();
+			int tmp=InputDati.leggiIntero("scegli il padre ", 0, listaAlberi.size());
+			listaAlberi.get(tmp).addFiglio(cat);		//setto il collegamento padre-figlio
+			campo=listaAlberi.get(tmp).getCampi();		//prendo i campi dal padre
+			
+		}
+		listaAlberi.add(cat);
+		
+		
+		
+		//inserimento campi
+		test=InputDati.yesOrNo("vuoi inserire dei campi per questa categoria ");
 		while(test==true)
 		{
-			campo.add(InputDati.leggiStringaNonVuota("inserisci un nuovo campo"));
+			campo.add(InputDati.leggiStringaNonVuota("inserisci un nuovo campo "));
 			//da controllare unicita del nome del campo
-			//cat.nuovoCampo(campo);
-			test=InputDati.yesOrNo("vuoi inserire altri campi");
+			test=InputDati.yesOrNo("vuoi inserire altri campi?");
 		}
 		cat.setCampi(campo);
-		Categoria radice=new Categoria(n);	
-		listaAlberi.add(radice);
-		
 	}
 
 	
