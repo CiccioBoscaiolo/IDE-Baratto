@@ -1,6 +1,7 @@
 package baratto;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import it.unibs.fp.mylib.BelleStringhe;
 import it.unibs.fp.mylib.InputDati;
@@ -14,7 +15,7 @@ public class Main {
 	
 	
 	//private static Lista_alberi listaAlberi;
-	private static ArrayList<Categoria> listaAlberi=new ArrayList <Categoria>();
+	private static List<Categoria> listaAlberi=new ArrayList <Categoria>();
 	private static ListaConfiguratori listaConfiguratori;
 	private static Configuratore c;
 	private static int ID=0;
@@ -99,7 +100,7 @@ public class Main {
 		ID++;
 		boolean test;
 		String n;
-		ArrayList<String>campo=new ArrayList<String>();
+		List<String>campo=new ArrayList<String>();
 		Categoria cat;
 		
 		//NOME CATEGORIA

@@ -8,10 +8,10 @@ public class Categoria {
 	
 	private String nome;
 	private int ID;
-	private ArrayList <String> campi=null;
+	private List<String> campi= new ArrayList<String>(); 
 	private List<Categoria> figli = new ArrayList<>(); 
-	private Categoria padre = null;
-	private Categoria cat = null;
+	private Categoria padre;
+	private Categoria cat;
 	
 	public Categoria(String nome,int ID) {
 		this.nome=nome;
@@ -21,7 +21,7 @@ public class Categoria {
 		campi.add("descrizione libera");
 		campi.add("stato conservazione");
 	}*/ 
-	public void setCampi(ArrayList<String> campi) {
+	public void setCampi(List<String> campi) {
 		this.campi = campi;
 	}
 	/*public void nuovoCampo (String campo) {
@@ -33,7 +33,7 @@ public class Categoria {
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
-	public ArrayList<String> getCampi() {
+	public List<String> getCampi() {
 		return campi;
 	}
 	public int getID() {
