@@ -21,6 +21,11 @@ public class Main {
 	
 	public static void main(String[] args) {
 		listaConfiguratori=new ListaConfiguratori();
+		
+		CicloMenuPrincipale();
+	}
+	
+	public static void CicloMenuPrincipale(){
 		boolean repeat=true;
 		
 		//do {
