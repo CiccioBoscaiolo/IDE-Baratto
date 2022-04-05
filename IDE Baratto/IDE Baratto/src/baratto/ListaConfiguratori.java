@@ -1,5 +1,14 @@
 package baratto;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 
 import it.unibs.fp.mylib.InputDati;
@@ -45,7 +54,6 @@ public class ListaConfiguratori {
 			flag=false;
 			ritenta=true;
 			
-			
 			if(motivo=="accesso" && ricerca(c)){
 				System.out.println("banane");
 				flag=true;
@@ -76,5 +84,49 @@ public class ListaConfiguratori {
 		return c;
 	}
 	
+	
+	
+	
+	
+	
+	
+		//private final static String MSG_NO_FILE = "ATTENZIONE: NON TROVO IL FILE ";
+		//private final static String MSG_NO_LETTURA = "ATTENZIONE: PROBLEMI CON LA LETTURA DEL FILE ";
+		private final static String MSG_NO_SCRITTURA = "ATTENZIONE: PROBLEMI CON LA SCRITTURA DEL FILE ";
+		private final static String MSG_NO_CHIUSURA ="ATTENZIONE: PROBLEMI CON LA CHIUSURA DEL FILE ";
+	  	
+		public static void salvaSingoloOggetto (File f, Object daSalvare)
+		 {
+			 ObjectOutputStream uscita = null;
+				
+			 try
+				{
+				 uscita = new ObjectOutputStream(new BufferedOutputStream(new FileOutputStream(f)));
+					
+				 uscita.writeObject(daSalvare);
+					
+				}
+			 catch (IOException excScrittura)
+				{
+				 System.out.println(MSG_NO_SCRITTURA + f.getName() );
+				}
+			 
+	  	     finally
+				{
+				 if (uscita != null)
+					{
+					 try 
+					  {
+					   uscita.close();
+					  }
+					 catch (IOException excChiusura)
+						{
+				 			System.out.println(MSG_NO_CHIUSURA + f.getName() );
+						}
+					}
+				} // finally
+
+			 } // metodo salvaSingoloOggetto
+
 }
 
