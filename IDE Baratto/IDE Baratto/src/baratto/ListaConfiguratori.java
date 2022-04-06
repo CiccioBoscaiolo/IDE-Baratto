@@ -95,7 +95,7 @@ public class ListaConfiguratori {
 		private final static String MSG_NO_SCRITTURA = "ATTENZIONE: PROBLEMI CON LA SCRITTURA DEL FILE ";
 		private final static String MSG_NO_CHIUSURA ="ATTENZIONE: PROBLEMI CON LA CHIUSURA DEL FILE ";
 	  	
-		public static void salvaSingoloOggetto (File f, Object daSalvare)
+		public static void salvaSingoloOggetto (ListaConfiguratori.txt , Object c)
 		 {
 			 ObjectOutputStream uscita = null;
 				
@@ -103,7 +103,7 @@ public class ListaConfiguratori {
 				{
 				 uscita = new ObjectOutputStream(new BufferedOutputStream(new FileOutputStream(f)));
 					
-				 uscita.writeObject(daSalvare);
+				 uscita.writeObject(c);
 					
 				}
 			 catch (IOException excScrittura)
