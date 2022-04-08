@@ -7,7 +7,7 @@ import it.unibs.fp.mylib.BelleStringhe;
 import it.unibs.fp.mylib.InputDati;
 import it.unibs.fp.mylib.MyMenu;
 
-//questo commento è stato fatto in data 30/03/22 
+//questo commento è stato fatto in data 08-04
 public class Main {
 	public final static String[] MENUBARATTO={"Utente","Configuratore"};
 	public final static String[] MENUACCESSOCONF={"Accedi","Registrati"};
