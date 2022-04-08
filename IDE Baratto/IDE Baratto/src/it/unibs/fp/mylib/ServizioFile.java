@@ -1,8 +1,6 @@
 package it.unibs.fp.mylib;
 import java.io.*;
 
-//ciao
-
 public class ServizioFile
 {
 	private final static String MSG_NO_FILE = "ATTENZIONE: NON TROVO IL FILE ";
