@@ -1,4 +1,4 @@
-package it.unibs.fp.mylib;
+package baratto;
 import java.io.*;
 
 public class ServizioFile
