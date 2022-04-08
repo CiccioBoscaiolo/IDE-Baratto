@@ -29,12 +29,12 @@ public class Main {
 	public static void CicloMenuPrincipale(){
 		boolean repeat=true;
 		
-		//do {
+		do {
 			MyMenu menu;
-			//menu=new MyMenu("Baratto",MENUBARATTO);
-			//int voceSelezionata = menu.scegli();
+			menu=new MyMenu("Baratto",MENUBARATTO);
+			int voceSelezionata = menu.scegli();
 			int selezione;
-			/*
+			
 			switch(voceSelezionata) {
 			case 1:	
 				//menu utente
@@ -54,7 +54,7 @@ public class Main {
 					}//fine switch accesso
 				
 				if(c!=null) {
-					*/do {
+					do {
 					menu=new MyMenu("CONFIGURATORE: ",MENUCONFIGURATORE);
 					selezione = menu.scegli();
 					
@@ -76,7 +76,7 @@ public class Main {
 						break;	
 					}
 					}while(selezione!=0);
-				}/*
+				}
 				break;
 			case 0:
 				System.out.println(BelleStringhe.incornicia("ARRIVEDERCI"));
@@ -84,7 +84,7 @@ public class Main {
 				break;
 			}		
 		}while(repeat==true);
-	}*/
+	}
 
 	private static void MostraStrutture() {
 		//mostrare lista alberi
