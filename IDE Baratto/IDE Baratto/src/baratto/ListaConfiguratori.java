@@ -95,7 +95,7 @@ public class ListaConfiguratori {
 		private final static String MSG_NO_SCRITTURA = "ATTENZIONE: PROBLEMI CON LA SCRITTURA DEL FILE ";
 		private final static String MSG_NO_CHIUSURA ="ATTENZIONE: PROBLEMI CON LA CHIUSURA DEL FILE ";
 	  	
-		public static void salvaSingoloOggetto (ListaConfiguratori.txt , Object c)
+		public static void salvaSingoloOggetto (File f , Object c)
 		 {
 			 ObjectOutputStream uscita = null;
 				
