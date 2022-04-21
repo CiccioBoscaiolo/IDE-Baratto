@@ -1,7 +1,7 @@
 package baratto;
 
 
-//vdff
+
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
@@ -17,6 +17,11 @@ import java.util.ArrayList;
 import it.unibs.fp.mylib.InputDati;
 
 public class ListaConfiguratori {
+	private static final String REGNAME = "admin";
+	private static final String REGPSW = "admin";
+	private static final String BENVENUTO = "Benvenuto nuovo configuratore \n inserisci nuove credenziali\n";
+	private static final String ERRORE ="errore, vuoi riprovare?";
+	
 	
 	private ArrayList<Configuratore> listaConfiguratori=new ArrayList <Configuratore>();
 
@@ -32,13 +37,13 @@ public class ListaConfiguratori {
 	}
 	
 	//altri metodi 
-	public boolean ricerca(Configuratore c) {
+	public Configuratore ricerca(Configuratore c) {
 		for(int i=0;i<listaConfiguratori.size();i++) {
 			if(listaConfiguratori.get(i).nome.equals(c.nome))
-				return true;
+				return listaConfiguratori.get(i);
 			
 		}
-		return false;
+		return null;
 		
 	}
 	public void stampatutti() {
@@ -47,39 +52,85 @@ public class ListaConfiguratori {
 		}
 	}
 	public Configuratore verificaCredenziali(String motivo) {
-		String nome,psw;
 		Configuratore c=null;
-		boolean ritenta=false,flag=false;
+		boolean ritenta=false,flag=false, error=false,esci=false;
 		do {
-			nome=InputDati.leggiStringaNonVuota("Inserire nome utente");
-			psw=InputDati.leggiStringaNonVuota("Inserire password");
-			c=new Configuratore(nome,psw);
+			c=inserimentoCredenziali();
 			flag=false;
 			ritenta=true;
 			
-			if(motivo=="accesso" && ricerca(c)){
+			
+			if(motivo=="accesso") {
+				do {
+					if (ricerca(c)!=null)	return ricerca(c);		//credenziali trovate
+					else {											//credenziali non trovate
+						ritenta=InputDati.yesOrNo(ERRORE);
+						if(!ritenta) {
+							esci=true;
+							break;
+						}
+					}
+				}while(error=true);
+			}
+			else if(motivo=="reg"){
+				if (c.nome.equals(REGPSW) && c.psw.equals(REGPSW)) {
+					System.out.println(BENVENUTO);
+					do{
+						c=inserimentoCredenziali();
+						if(ricerca(c)!=null) {
+							ritenta=InputDati.yesOrNo(ERRORE);
+							if(!ritenta) {
+								esci=true;
+								break;
+							}
+						}
+					}while(ricerca(c)!=null);
+				}
+				else error=true;
+			}
+			}
+			while(ritenta);
+			return c;
+		}
+		
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			/*
+			
+			if(motivo=="accesso" && ricerca(c)){		//cerco e trovo
 				
 				//SFOGLIARE ARRAY PER TROVARE IL CONFIGURATORE.... scegli tu "come" 
 				
 				flag=true;
 				ritenta=false;
 			}
-			else if(motivo=="new") {
-				if(!ricerca(c)) {
-					listaConfiguratori.add(c);
-					flag=true;
-					ritenta=false;
-				}
-				else {
-					System.out.println("\nUsername già utilizzato");
-				}
-			}
-			else if(motivo.equals("reg") && nome.equals("admin") && psw.equals("admin")){
+			else if(motivo.equals("new") && c.nome.equals(REGNAME) && c.psw.equals(REGPSW)){
 				System.out.println("Benvenuto nuovo configuratore \n inserisci nuove credenziali");
 				ritenta=true;
 				flag=true;
 				motivo="new";
-		}
+			}
+			else if(motivo=="new") {					//nuovo utente
+				if(!ricerca(c)) {						//utente inesistente
+					listaConfiguratori.add(c);
+					flag=true;
+					ritenta=false;
+				}
+				else {									//utente già presente
+					System.out.println("\nUsername già utilizzato");
+				}
+			}
+			
 			if(flag==false) {
 				ritenta=InputDati.yesOrNo("\nERRORE \nVuoi riprovare ad autenticarti?");
 				if(!ritenta) return null;
@@ -88,50 +139,14 @@ public class ListaConfiguratori {
 		while(ritenta);
 		return c;
 	}
-	
-	
-	
-	
-	
-	
-	
-		//private final static String MSG_NO_FILE = "ATTENZIONE: NON TROVO IL FILE ";
-		//private final static String MSG_NO_LETTURA = "ATTENZIONE: PROBLEMI CON LA LETTURA DEL FILE ";
-		private final static String MSG_NO_SCRITTURA = "ATTENZIONE: PROBLEMI CON LA SCRITTURA DEL FILE ";
-		private final static String MSG_NO_CHIUSURA ="ATTENZIONE: PROBLEMI CON LA CHIUSURA DEL FILE ";
-	  	
-		public static void salvaSingoloOggetto (File f , Object c)
-		 {
-			 ObjectOutputStream uscita = null;
-				
-			 try
-				{
-				 uscita = new ObjectOutputStream(new BufferedOutputStream(new FileOutputStream(f)));
-					
-				 uscita.writeObject(c);
-					
-				}
-			 catch (IOException excScrittura)
-				{
-				 System.out.println(MSG_NO_SCRITTURA + f.getName() );
-				}
-			 
-	  	     finally
-				{
-				 if (uscita != null)
-					{
-					 try 
-					  {
-					   uscita.close();
-					  }
-					 catch (IOException excChiusura)
-						{
-				 			System.out.println(MSG_NO_CHIUSURA + f.getName() );
-						}
-					}
-				} // finally
-
-			 } // metodo salvaSingoloOggetto
+	*/
+		private Configuratore inserimentoCredenziali() {
+		// TODO Auto-generated method stub
+			String nome;
+			String psw;
+			nome=InputDati.leggiStringaNonVuota("Inserire nome utente");
+			psw=InputDati.leggiStringaNonVuota("Inserire password");
+			return new Configuratore(nome,psw);
+	}
 
 }
-
