@@ -51,7 +51,7 @@ public class ListaConfiguratori {
 			System.out.println(listaConfiguratori.get(i).getNome()+" "+listaConfiguratori.get(i).getPsw()+"\n");
 		}
 	}
-	public Configuratore verificaCredenziali(String motivo) {
+	public Configuratore verificaCredenziali(boolean firstAccess) {
 		Configuratore c=null;
 		boolean ritenta=false,flag=false, error=false,esci=false;
 		do {
@@ -60,7 +60,7 @@ public class ListaConfiguratori {
 			ritenta=true;
 			
 			
-			if(motivo=="accesso") {
+			if(!firstAccess) {
 				do {
 					if (ricerca(c)!=null)	return ricerca(c);		//credenziali trovate
 					else {											//credenziali non trovate
@@ -72,7 +72,7 @@ public class ListaConfiguratori {
 					}
 				}while(error=true);
 			}
-			else if(motivo=="reg"){
+			else if(firstAccess){
 				if (c.nome.equals(REGPSW) && c.psw.equals(REGPSW)) {
 					System.out.println(BENVENUTO);
 					do{

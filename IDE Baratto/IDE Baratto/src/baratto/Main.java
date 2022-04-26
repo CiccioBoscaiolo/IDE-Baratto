@@ -12,6 +12,7 @@ public class Main {
 	public final static String[] MENUBARATTO={"Utente","Configuratore"};
 	public final static String[] MENUACCESSOCONF={"Accedi","Registrati"};
 	public final static String[] MENUCONFIGURATORE= {"aggiungi categoria","visualizza categorie"};
+
 	
 	
 	//private static Lista_alberi listaAlberi;
@@ -25,45 +26,56 @@ public class Main {
 	}
 	
 	public static void CicloMenuPrincipale(){
-		boolean repeat=true;
+		//boolean repeat=true;
 		int selezione;
 		MyMenu menu;
+		
 		
 		do {
 			menu=new MyMenu("Baratto",MENUBARATTO);
 			selezione= menu.scegli();
 			switch(selezione) {
 				case 1:	
-				//menu utente
-				continue;
-				
+					//menu utente
+					continue;
 				
 				case 2:	
-					ListaConfiguratori listaConfiguratori = new ListaConfiguratori();
-					menu=new MyMenu("Accesso",MENUACCESSOCONF);
-					selezione = menu.scegli();
-					switch(selezione) {
-						case 1:		
-							c=listaConfiguratori.verificaCredenziali("login");
-							break;
-				
-						case 2:		
-							c=listaConfiguratori.verificaCredenziali("reg");
-							break;
-					}//fine switch accesso
+					menuAccessoConfiguratore();
+					
 					if(c==null) continue;
-					menuConfig(c);
+					menuConfiguratore(c);
 					break;
 				case 0:
 					System.out.println(BelleStringhe.incornicia("ARRIVEDERCI"));
-					repeat=false;
+					//repeat=false;
 					break;
 			}
 		}while(selezione!=0);
 	}
 
 	
-	public static void menuConfig(Configuratore c){
+	private static void menuAccessoConfiguratore() {
+		ListaConfiguratori listaConfiguratori = new ListaConfiguratori();
+		MyMenu menu=new MyMenu("Accesso",MENUACCESSOCONF);
+		int selezione = menu.scegli();
+		boolean firstAccess;
+		
+		switch(selezione) {
+			case 1:		
+				//LOGIN
+				c=listaConfiguratori.verificaCredenziali(firstAccess=false);
+				break;
+	
+			case 2:		
+				//REGISTRAZIONE
+				c=listaConfiguratori.verificaCredenziali(firstAccess=true);
+				break;
+		}
+		
+		
+	}
+
+	public static void menuConfiguratore(Configuratore c){
 		boolean leaf;
 		int selezione;
 		do {
@@ -72,18 +84,19 @@ public class Main {
 			
 			
 			switch(selezione) {
-			case 1:		//aggiunta nuova radice
-				leaf=false;
-				Nuova_cat(leaf);
-				
+			case 1:		
+				//aggiunta nuova radice
+				Nuova_cat(leaf=false);
+				break;
 				
 			case 2:
-				leaf=true;
-				Nuova_cat(leaf);
-				
+				//aggiunta nuova foglia
+				Nuova_cat(leaf=true);
 				break;
-			case 3:		//visualizza strutture
-					//implementare visulaizzazione
+				
+			case 3:		
+				//visualizza strutture
+				//implementare visulaizzazione
 				MostraStrutture();
 				break;	
 			}
@@ -92,7 +105,8 @@ public class Main {
 	
 	
 	private static void MostraStrutture() {
-		//mostrare lista alberi
+		//mostrare lista radici
+		//implementare la possibilità di visualizzare figli annidati
 		for(int i=0;i<listaRadici.size();i++) {
 		System.out.println(listaRadici.get(i).getID()+" "+listaRadici.get(i).getNome());
 		}
@@ -103,15 +117,21 @@ public class Main {
 
 	private static void Nuova_cat(boolean leaf) {	//da finire
 		
-		boolean test;
+		boolean duplicate,test;
 		String n;
 		List<String>campo=new ArrayList<String>();
 		Categoria cat;
 		
 		
-		//NOME CATEGORIA
+		do {
 		n=InputDati.leggiStringaNonVuota("inseririsci nome categoria");
-		//da controllare unicità nome
+		for (Categoria item : listaRadici) {		//controllo unicità nome della categoria
+			if(item.getNome()==n){
+				continue;
+			}
+		}
+		duplicate=false;
+		}while(duplicate);
 		
 		
 		cat=new Categoria(n);	//creo nuova categoria
@@ -136,7 +156,7 @@ public class Main {
 		
 		
 		//inserimento campi
-		test=InputDati.yesOrNo("vuoi inserire caltri campi per questa categoria ");
+		test=InputDati.yesOrNo("vuoi inserire altri campi per questa categoria ");
 		while(test==true)
 		{
 			campo.add(InputDati.leggiStringaNonVuota("inserisci un nuovo campo "));
