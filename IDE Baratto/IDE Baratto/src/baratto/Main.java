@@ -40,7 +40,7 @@ public class Main {
 					continue;
 				
 				case 2:	
-					menuAccessoConfiguratore();
+					c=menuAccessoConfiguratore();
 					
 					if(c==null) continue;
 					menuConfiguratore(c);
@@ -54,7 +54,7 @@ public class Main {
 	}
 
 	
-	private static void menuAccessoConfiguratore() {
+	private static Configuratore menuAccessoConfiguratore() {
 		ListaConfiguratori listaConfiguratori = new ListaConfiguratori();
 		MyMenu menu=new MyMenu("Accesso",MENUACCESSOCONF);
 		int selezione = menu.scegli();
@@ -63,14 +63,20 @@ public class Main {
 		switch(selezione) {
 			case 1:		
 				//LOGIN
-				c=listaConfiguratori.verificaCredenziali(firstAccess=false);
+				firstAccess=false;
+				c=listaConfiguratori.verificaCredenziali(firstAccess);
 				break;
 	
 			case 2:		
 				//REGISTRAZIONE
-				c=listaConfiguratori.verificaCredenziali(firstAccess=true);
+				firstAccess=true;
+				c=listaConfiguratori.verificaCredenziali(firstAccess);
 				break;
+			
+			case 0:
+				return null;
 		}
+		return c;
 		
 		
 	}
@@ -86,12 +92,14 @@ public class Main {
 			switch(selezione) {
 			case 1:		
 				//aggiunta nuova radice
-				Nuova_cat(leaf=false);
+				leaf=false;
+				Nuova_cat(leaf);
 				break;
 				
 			case 2:
 				//aggiunta nuova foglia
-				Nuova_cat(leaf=true);
+				leaf=true;
+				Nuova_cat(leaf);
 				break;
 				
 			case 3:		

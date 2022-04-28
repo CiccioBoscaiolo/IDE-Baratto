@@ -19,8 +19,8 @@ import it.unibs.fp.mylib.InputDati;
 public class ListaConfiguratori {
 	private static final String REGNAME = "admin";
 	private static final String REGPSW = "admin";
-	private static final String BENVENUTO = "Benvenuto nuovo configuratore \n inserisci nuove credenziali\n";
-	private static final String ERRORE ="errore, vuoi riprovare?";
+	private static final String BENVENUTO = "\nBenvenuto nuovo configuratore \n inserisci nuove credenziali\n";
+	private static final String ERRORE ="\nerrore, vuoi riprovare?\t";
 	
 	
 	private ArrayList<Configuratore> listaConfiguratori=new ArrayList <Configuratore>();
@@ -61,32 +61,33 @@ public class ListaConfiguratori {
 			
 			
 			if(!firstAccess) {
-				do {
 					if (ricerca(c)!=null)	return ricerca(c);		//credenziali trovate
 					else {											//credenziali non trovate
 						ritenta=InputDati.yesOrNo(ERRORE);
 						if(!ritenta) {
-							esci=true;
-							break;
+							return null;
 						}
+						else continue;
 					}
-				}while(error=true);
+				
 			}
 			else if(firstAccess){
 				if (c.nome.equals(REGPSW) && c.psw.equals(REGPSW)) {
 					System.out.println(BENVENUTO);
 					do{
+						System.out.println("\nprova\n");
 						c=inserimentoCredenziali();
 						if(ricerca(c)!=null) {
+							System.out.println("\nERRORE \n");
 							ritenta=InputDati.yesOrNo(ERRORE);
 							if(!ritenta) {
-								esci=true;
-								break;
+								return null;
 							}
+							else continue;
 						}
 					}while(ricerca(c)!=null);
 				}
-				else error=true;
+				else System.out.println("credenziali per la registrazione errate\n");
 			}
 			}
 			while(ritenta);
@@ -144,9 +145,11 @@ public class ListaConfiguratori {
 		// TODO Auto-generated method stub
 			String nome;
 			String psw;
+			Configuratore c;
 			nome=InputDati.leggiStringaNonVuota("Inserire nome utente");
 			psw=InputDati.leggiStringaNonVuota("Inserire password");
-			return new Configuratore(nome,psw);
+			c= new Configuratore(nome,psw);
+			return c;
 	}
 
 }
